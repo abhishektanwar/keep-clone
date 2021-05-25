@@ -393,3 +393,25 @@ form:focus,input:focus{
 	outline: none;
 	border: 0;
 }
+
+.navbar{
+	width: 100%;
+	background-color: blue;
+	height: 35px;
+	display: flex;
+	align-items: flex-end;
+	padding-left: 80%;
+
+}
+
+.nav-btn{
+	height:35px;
+	padding: 0 20px;
+	margin: 0 10px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+a{
+	text-decoration: none;
+}

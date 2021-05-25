@@ -1,0 +1,30 @@
+.SignInContainer{
+	display: flex;
+	flex-direction: column;
+	margin: auto auto;
+	padding: auto auto;
+	border: 2px pink solid;
+	height: 500px;
+	min-width:360px ;
+	width: 500px;
+}
+
+.loginform{
+	margin-top: 40px;
+
+
+}
+
+.email-input,.pass-input{
+	width: 220px;
+	padding-left: 30px;
+	margin: 20px auto;
+	height: 30px;
+	/* border: none; */
+	outline: none;
+}
+
+.login-btn{
+	width: 80px;
+	margin: 0 auto;
+}
