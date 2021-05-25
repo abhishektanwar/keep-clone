@@ -1,82 +1,102 @@
-function runfunction(){
-	console.log("a")
-	displayNotes()
-}
 
-let notes = JSON.parse(localStorage.getItem('notes')) || []; 
-let title = ""
-let text = ""
-let id = ""
-let form = document.querySelector("#form");
-let notesDisplay = document.querySelector("#notes");
-let noteTitle = document.querySelector("#note-title")
-let noteText = document.querySelector("#note-text")
-let formButtons = document.querySelector("#form-btns")
-let formCloseButton = document.querySelector("#form-close-btn")
-let modal = document.querySelector(".modal")
-let modalTitle = document.querySelector(".modal-title")
-let modalText = document.querySelector(".modal-text")
-let modalCloseButton = document.querySelector(".modal-close-btn")
-let colorToolTip = document.querySelector("#color-tool-tip");
-let placeholder = document.querySelector("#placeholder")
-// formButtons.addEventListener("mouseout",event=>{
-// 	event.preventDefault()
-// 	console.log("Afasfs")
-// })
+class App{
+	constructor() {
+		this.notes = JSON.parse(localStorage.getItem('notes')) || []; 
+		this.title = ""
+		this.text = ""
+		this.id = ""
+		this.form = document.querySelector("#form");
+		this.notesDisplay = document.querySelector("#notes");
+		this.noteTitle = document.querySelector("#note-title")
+		this.noteText = document.querySelector("#note-text")
+		this.formButtons = document.querySelector("#form-btns")
+		this.formCloseButton = document.querySelector("#form-close-btn")
+		this.modal = document.querySelector(".modal")
+		this.modalTitle = document.querySelector(".modal-title")
+		this.modalText = document.querySelector(".modal-text")
+		this.modalCloseButton = document.querySelector(".modal-close-btn")
+		this.colorToolTip = document.querySelector("#color-tool-tip");
+		this.placeholder = document.querySelector("#placeholder")
 
-// formButtons.addEventListener('click',function(){
-// 	console.log(notes.length);
-// })
-
-form.addEventListener("submit",event => {
-	event.preventDefault()
-	// console.log("siubmit")
-	const title = noteTitle.value;
-	const text = noteText.value;
-	console.log("title",title);
-	console.log("text",text)
-	const hasNote = title || text;
-	if(hasNote){
-		addNote({title,text})
+		this.render();
+		this.addEventListeners();
 	}
-})
 
-function displayNotes(){
-	const hasNotes = notes.length > 0;
-	placeholder.style.display = hasNotes ? "none" : "flex";
-	notesDisplay.innerHTML = notes.map(note =>{
-		`
-			<div style="background: ${note.color};" class="note data-id="${note.id}">
-				<div class="${note.title && "note-title"}">${note.title}</div>
-				<div class="note-text">${note.text}</div>
-				<div class="toolbar-container">
-					<div class="toolbar">
-						<img class="toolbase-color" data-id=${note.id} src="https://icon.now.sh/palette>
-						<img data-id=${note.id} class="toolbar-delete" src="https://icon.now.sh/delete">
-					</div>
-				</div>
-			</div>
-		`
-	}).join("")
+	addEventListeners() {
+		document.body.addEventListener("click", event => {
+			this.handleFormClick(event);
+			this.selectNote(event);
+			this.openModal(event);
+			this.deleteNote(event);
+	});
+
+
+	this.form.addEventListener("submit",event => {
+		event.preventDefault()
+		console.log("siubmit")
+		const title = this.noteTitle.value;
+		const text = this.noteText.value;
+		console.log("title",title);
+		console.log("text",text)
+		const hasNote = title || text;
+		if(hasNote){
+			this.addNote({title,text})
+		}
+	})
+
 }
+	render() {
+		this.saveNotes();
+		this.displayNotes();
+	}
 
-function render(){
-	saveNotes();
-	displayNotes();
-}
-
-function saveNotes(){
-	localStorage.setItem('notes',JSON.stringify(notes))
-}
-
-function addNote({title,text}){
+	addNote({title,text}){
 	const newNote = {
 		title,
 		text,
 		color:"white",
 		id:notes.length > 0 ? notes[notes.length - 1].id + 1 : 1
 	};
-	notes = [...notes,newNote]
+	this.notes = [...notes,newNote]
 	render();
 }
+
+
+	displayNotes() {
+		const hasNotes = this.notes.length > 0;
+		this.placeholder.style.display = hasNotes ? "none" : "flex";
+	
+		this.notesDisplay.innerHTML = this.notes
+			.map(
+			note => `
+			<div style="background: ${note.color};" class="note" data-id="${
+				note.id
+			}">
+				<div class="${note.title && "note-title"}">${note.title}</div>
+				<div class="note-text">${note.text}</div>
+				<div class="toolbar-container">
+				<div class="toolbar">
+					<img class="toolbar-color" data-id=${
+					note.id
+					} src="https://icon.now.sh/palette">
+					<img data-id=${
+					note.id
+					} class="toolbar-delete" src="https://icon.now.sh/delete">
+				</div>
+			  </div>
+			</div>
+		 `
+		  )
+		  .join("");
+	  }
+	
+
+	saveNotes(){
+		localStorage.setItem('notes',JSON.stringify(notes))
+	}
+
+
+}
+
+new App();
 
