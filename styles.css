@@ -409,7 +409,6 @@ form:focus,input:focus{
 	padding: 0 20px;
 	margin: 0 10px;
 	display: flex;
-	/* justify-content: flex-end; */
 }
 
 a{

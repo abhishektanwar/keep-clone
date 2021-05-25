@@ -10,17 +10,33 @@
 	
 <body>
 	<div class="SignInContainer">
+		<h2 style="text-align: center;">Login </h2>
 		<form class="loginform">
-
+			<input type="email" placeholder="email" required class="email-input">
+			<input type="password" placeholder="Passowrd" required class="pass-input">
+			<button type="submit" class="login-btn">LogIn</button>
+			
 		</form>
-		<input type="text" placeholder="email" required class="email-input">
-		<input type="password" placeholder="Passowrd" required class="pass-input">
-		<button class="login-btn">Log In</button>
+		<button class="l" ><a href="index.html"></a></button>
+		
 	</div>
 
 	<script>
-		document.querySelector(".login-btn").addEventListener('click',function(){
-			alert("please connect to backend login service")
+
+	document.querySelector(".l").addEventListener('click',function(){
+		console.log("sf")
+		window.location.href="index.html"
+	})
+		document.querySelector(".login-btn").addEventListener('click',function(e){
+			e.preventDefault();
+			if(document.querySelector(".email-input").value==="test@volopay.com"){
+				if(document.querySelector(".pass-input").value==="testuser"){
+					console.log("op")
+					// window.location.href = "https://www.google.com";
+					document.querySelector(".l").click();
+				}
+			}
+			
 		})
 	</script>
 </body>
